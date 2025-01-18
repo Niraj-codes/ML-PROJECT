@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>California Housing Price Prediction</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Global styles */
+        body {
+            font-family: "Poppins", serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        /* Container styling */
+        .container {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            overflow: hidden;
+            box-sizing: border-box;
+            margin: 20px;
+        }
+
+        /* Heading and Form Styling */
+        h2 {
+            margin-bottom: 25px;
+            color: #555;
+            font-size: 22px;
+            font-weight: 600;
+            text-align: left;
+            margin-left: 40px;
+        }
+
+        /* Form styling */
+        form {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 10px;
+            box-shadow: 0 ;
+        }
+
+        /* Each form field styling */
+        .form-group {
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 8px;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .form-group input[type="text"] {
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input[type="text"]:focus {
+            border-color: #4CAF50;
+            background-color: #ffffff;
+            outline: none;
+        }
+
+        /* Adjust the input fields on smaller screens */
+        @media (max-width: 600px) {
+            .form-group {
+                width: 100%;
+            }
+        }
+
+        /* Button styling */
+        button {
+            width: 100%;
+            padding: 16px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-3px);
+        }
+
+        button:active {
+            transform: translateY(2px);
+        }
+
+        /* Result box styling */
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f1f8e9;
+            color: #388e3c;
+            font-size: 22px;
+            font-weight: 700;
+            border-radius: 10px;
+            border: 5px solid #4CAF50;
+            display: none;
+            box-shadow: 0 4px 10px rgba(68, 246, 137, 0.1);
+        }
+
+        /* Header styling */
+        header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        header img {
+            width: 60px;
+            margin-right: 15px;
+            border: 1px solid #4CAF50;
+            border-radius: 15%;
+        }
+
+        header h1 {
+            font-size: 30px;
+            color: #4CAF50;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <header>
+        <img src="logo.png" alt="Logo">
+        <h1>California Housing Price Prediction</h1>
+    </header>
+
+    <form id="predictionForm">
+        <div class="form-group">
+            <!-- Feature 1: Median Income -->
+            <label for="feature1">Median Income (in 10k USD):</label>
+            <input type="text" id="feature1" placeholder="Enter Median Income" required>
+        </div>
+
+        <div class="form-group">
+            <!-- Feature 2: House Age -->
+            <label for="feature2">House Age (years):</label>
+            <input type="text" id="feature2" placeholder="Enter House Age" required>
+        </div>
+
+        <div class="form-group">
+            <!-- Feature 3: Avg Rooms -->
+            <label for="feature3">Average Rooms per House:</label>
+            <input type="text" id="feature3" placeholder="Enter Average Rooms" required>
+        </div>
+
+        <div class="form-group">
+            <!-- Feature 4: Avg Bedrooms -->
+            <label for="feature4">Average Bedrooms per House:</label>
+            <input type="text" id="feature4" placeholder="Enter Average Bedrooms" required>
+        </div>
+
+        <div class="form-group">
+            <!-- Feature 5: Population -->
+            <label for="feature5">Population in the Block:</label>
+            <input type="text" id="feature5" placeholder="Enter Population" required>
+        </div>
+
+        <div class="form-group">
+            <!-- Feature 6: Median House Value -->
+            <label for="feature6">Average Occupancy per Household:</label>
+            <input type="text" id="feature6" placeholder="Enter Average Occupancy" required>
+        </div>
+
+        <div class="form-group">
+            <!-- Feature 7: Ocean Proximity -->
+            <label for="feature7">Latitude:</label>
+            <input type="text" id="feature7" placeholder="Enter Latitude" required>
+        </div>
+
+        <div class="form-group">
+            <!-- Feature 8: Households -->
+            <label for="feature8">Longitude:</label>
+            <input type="text" id="feature8" placeholder="Enter Longitude" required>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit">Predict</button>
+    </form>
+
+    <!-- Result Section -->
+    <div id="result" class="result">Predicted Price: $0</div>
+
+</div>
+
+<script>
+    // Handle form submission
+    document.getElementById('predictionForm').onsubmit = async function (event) {
+        event.preventDefault();
+
+        const features = [
+            parseFloat(document.getElementById('feature1').value),
+            parseFloat(document.getElementById('feature2').value),
+            parseFloat(document.getElementById('feature3').value),
+            parseFloat(document.getElementById('feature4').value),
+            parseFloat(document.getElementById('feature5').value),
+            parseFloat(document.getElementById('feature6').value),
+            parseFloat(document.getElementById('feature7').value),
+            parseFloat(document.getElementById('feature8').value),
+        ];
+
+        const response = await fetch('http://127.0.0.1:5000/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ features }),
+        });
+
+        const result = await response.json();
+
+        // Show the result in the result div
+        document.getElementById('result').textContent = `Predicted Price: $${result.prediction.toFixed(2)}`;
+        document.getElementById('result').style.display = 'block';
+    };
+</script>
+
+</body>
+</html>
